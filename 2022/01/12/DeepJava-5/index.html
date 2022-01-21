@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="程序员的深耕路线">
+  <link 
+    rel="icon" 
+    href="/img/cy.jpg">
+  <title>DeepJava-5</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="DeepJava-5">
+    
+    
+      <meta 
+        property="og:url" 
+        content="http://example.com/2022/01/12/DeepJava-5/index.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="/img/cy.jpg">
+    
+    
+      <meta 
+        property="og:img" 
+        content="程序员的深耕路线">
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2022-01-12">
+      <meta 
+        property="og:article:modified_time" 
+        content="2022-01-12">
+      <meta 
+        property="og:article:author" 
+        content="Floye">
+      
+        
+          <meta 
+            property="og:article:tag" 
+            content="学习">
+        
+      
+    
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+  
+    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+        <img 
+          class="navbar-logo-img"
+          width="32"
+          height="32"
+          src="/img/cy.jpg" 
+          alt="blog logo">
+      
+      <span class="navbar-logo-dsc">Floye Coding Road</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/" 
+        class="navbar-menu-item">
+        
+          首页
+        
+      </a>
+    
+      <a 
+        href="/archives" 
+        class="navbar-menu-item">
+        
+          归档
+        
+      </a>
+    
+      <a 
+        href="/tags" 
+        class="navbar-menu-item">
+        
+          标签
+        
+      </a>
+    
+      <a 
+        href="/categories" 
+        class="navbar-menu-item">
+        
+          分类
+        
+      </a>
+    
+      <a 
+        href="/about" 
+        class="navbar-menu-item">
+        
+          关于
+        
+      </a>
+    
+      <a 
+        href="/links" 
+        class="navbar-menu-item">
+        
+          友链
+        
+      </a>
+    
+    <a 
+      class="navbar-menu-item darknavbar" 
+      id="dark">
+      <i class="iconfont icon-weather"></i>
+    </a>
+    <a 
+      class="navbar-menu-item searchnavbar" 
+      id="search">
+      <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i>
+    </a>
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      DeepJava-5
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2022-01-11T23:26:57.000Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2022-01-12</span>
+    </time>
+    
+    
+      <span class="dot"></span>
+      <span>1.9k 字</span>
+    
+  </div>
+  
+    <div 
+      class="post-meta post-show-meta" 
+      style="margin-top: -10px;">
+      <div style="display: flex; align-items: center;">
+        <i 
+          class="iconfont icon-biaoqian" 
+          style="margin-right: 2px; font-size: 1.15rem;">
+        </i>
+        
+          
+          <a 
+            href="/tags/%E5%AD%A6%E4%B9%A0/" 
+            class="post-meta-link">
+            学习
+          </a>
+        
+      </div>
+    </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <h1 id="Java集合"><a href="#Java集合" class="headerlink" title="Java集合"></a>Java集合</h1><h2 id="Collections-sort和Arrays-sort的实现原理"><a href="#Collections-sort和Arrays-sort的实现原理" class="headerlink" title="Collections.sort和Arrays.sort的实现原理"></a>Collections.sort和Arrays.sort的实现原理</h2><ul>
+<li><p>Collections.sort底层实现<br>Collections.sort 调用了List.sort, List.sort 调用了Arrays.sort; 即<br>Collections.sort 底层调用了Arrays.sort</p>
+</li>
+<li><p>Arrays.sort底层实现<br>Arrays的sort方法底层就是：</p>
+</li>
+</ul>
+<p>legacyMergeSort(a)，归并排序，<br>ComparableTimSort.sort()：即Timsort排序。</p>
+<ul>
+<li>Timesort排序<br>Timsort排序是结合了合并排序（merge.sort）和插入排序（insertion sort）而得出的排序方法；</li>
+</ul>
+<h2 id="HashMap原理，java8做了什么改变"><a href="#HashMap原理，java8做了什么改变" class="headerlink" title="HashMap原理，java8做了什么改变"></a>HashMap原理，java8做了什么改变</h2><ul>
+<li>HashMap原理，java8做了什么改变</li>
+<li>HashMap是以键值对存储数据的集合容器</li>
+<li>HashMap是非线性安全的。</li>
+<li>HashMap底层数据结构：数组+(链表、红黑树)，jdk8之前是用数组+链表的方式实现，jdk8引进了红黑树</li>
+<li>Hashmap数组的默认初始长度是16，key和value都允许null的存在</li>
+<li>HashMap的内部实现数组是Node[]数组，上面存放的是key-value键值对的节点。HashMap通过put和get方法存储和获取。</li>
+<li>HashMap的put方法，首先计算key的hashcode值，定位到对应的数组索引，然后再在该索引的单向链表上进行循环遍历，用equals比较key是否存在，如果存在则用新的value覆盖原值，如果没有则向后追加。</li>
+<li>jdk8中put方法：先判断Hashmap是否为空，为空就扩容，不为空计算出key的hash值i，然后看table[i]是否为空，为空就直接插入，不为空判断当前位置的key和table[i]是否相同，相同就覆盖，不相同就查看table[i]是否是红黑树节点，如果是的话就用红黑树直接插入键值对，如果不是开始遍历链表插入，如果遇到重复值就覆盖，否则直接插入，如果链表长度大于8，转为红黑树结构，执行完成后看size是否大于阈值threshold，大于就扩容，否则直接结束。</li>
+<li>Hashmap解决hash冲突，使用的是链地址法，即数组+链表的形式来解决。put执行首先判断table[i]位置，如果为空就直接插入，不为空判断和当前值是否相等，相等就覆盖，如果不相等的话，判断是否是红黑树节点，如果不是，就从table[i]位置开始遍历链表，相等覆盖，不相等插入。</li>
+<li>HashMap的get方法就是计算出要获取元素的hash值，去对应位置获取即可。</li>
+<li>HashMap的扩容机制，Hashmap的扩容中主要进行两步，第一步把数组长度变为原来的两倍，第二部把旧数组的元素重新计算hash插入到新数组中，jdk8时，不用重新计算hash，只用看看原来的hash值新增的一位是零还是1，如果是1这个元素在新数组中的位置，是原数组的位置加原数组长度，如果是零就插入到原数组中。扩容过程第二部一个非常重要的方法是transfer方法，采用头插法，把旧数组的元素插入到新数组中。</li>
+<li>HashMap大小为什么是2的幂次方？效率高+空间分布均匀</li>
+</ul>
+<h2 id="TreeMap底层？"><a href="#TreeMap底层？" class="headerlink" title="TreeMap底层？"></a>TreeMap底层？</h2><p>TreeMap实现了SotredMap接口，它是有序的集合。<br>TreeMap底层数据结构是一个红黑树，每个key-value都作为一个红黑树的节点。<br>如果在调用TreeMap的构造函数时没有指定比较器，则根据key执行自然排序。</p>
+<h2 id="List-和-Set，Map-的区别"><a href="#List-和-Set，Map-的区别" class="headerlink" title="List 和 Set，Map 的区别"></a>List 和 Set，Map 的区别</h2><p>List 以索引来存取元素，有序的，元素是允许重复的，可以插入多个null。<br>Set 不能存放重复元素，无序的，只允许一个null<br>Map 保存键值对映射，映射关系可以一对一、多对一<br>List 有基于数组、链表实现两种方式<br>Set、Map 容器有基于哈希存储和红黑树两种方式实现<br>Set 基于 Map 实现，Set 里的元素值就是 Map的键值</p>
+<h2 id="poll-方法和-remove-方法的区别？"><a href="#poll-方法和-remove-方法的区别？" class="headerlink" title="poll()方法和 remove()方法的区别？"></a>poll()方法和 remove()方法的区别？</h2><p>Queue队列中，poll() 和 remove() 都是从队列中取出一个元素，在队列元素为空的情况下，remove() 方法会抛出异常，poll() 方法只会返回 null 。</p>
+<h2 id="HashMap，HashTable，ConcurrentHash的共同点和区别"><a href="#HashMap，HashTable，ConcurrentHash的共同点和区别" class="headerlink" title="HashMap，HashTable，ConcurrentHash的共同点和区别"></a>HashMap，HashTable，ConcurrentHash的共同点和区别</h2><p>HashMap</p>
+<p>底层由链表+数组+红黑树实现<br>可以存储null键和null值<br>线性不安全<br>初始容量为16，扩容每次都是2的n次幂<br>加载因子为0.75，当Map中元素总数超过Entry数组的0.75，触发扩容操作.<br>并发情况下，HashMap进行put操作会引起死循环，导致CPU利用率接近100%<br>HashMap是对Map接口的实现<br>HashTable</p>
+<p>HashTable的底层也是由链表+数组+红黑树实现。<br>无论key还是value都不能为null<br>它是线性安全的，使用了synchronized关键字。<br>HashTable实现了Map接口和Dictionary抽象类<br>Hashtable初始容量为11<br>ConcurrentHashMap</p>
+<p>ConcurrentHashMap的底层是数组+链表+红黑树<br>不能存储null键和值<br>ConcurrentHashMap是线程安全的<br>ConcurrentHashMap使用锁分段技术确保线性安全<br>JDK8为何又放弃分段锁，是因为多个分段锁浪费内存空间，竞争同一个锁的概率非常小，分段锁反而会造成效率低。</p>
+<h2 id="HashMap-的扩容过程"><a href="#HashMap-的扩容过程" class="headerlink" title="HashMap 的扩容过程"></a>HashMap 的扩容过程</h2><p>？？？</p>
+<h2 id="HashSet是如何保证不重复的"><a href="#HashSet是如何保证不重复的" class="headerlink" title="HashSet是如何保证不重复的"></a>HashSet是如何保证不重复的</h2><p>可以看一下HashSet的add方法，元素E作为HashMap的key，我们都知道HashMap的Key是不允许重复的.</p>
+<pre class="highlight"><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> map.put(e, PRESENT)==<span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre>
+<h2 id="哪些集合类是线程安全的？哪些不安全？"><a href="#哪些集合类是线程安全的？哪些不安全？" class="headerlink" title="哪些集合类是线程安全的？哪些不安全？"></a>哪些集合类是线程安全的？哪些不安全？</h2><p>线性安全的</p>
+<ul>
+<li>Vector：比ArrayList多了个同步化机制。</li>
+<li>HashTable：比Hashmap多了个线程安全。</li>
+<li>ConcurrentHashMap:是一种高效但是线程安全的集合。</li>
+<li>Stack：栈，也是线程安全的，继承于Vector。<br>线性不安全的</li>
+<li>Hashmap</li>
+<li>ArrayList</li>
+<li>LinkedList</li>
+<li>HashSet</li>
+<li>TreeSet</li>
+<li>TreeMap</li>
+</ul>
+<h2 id="怎么确保一个集合不能被修改？"><a href="#怎么确保一个集合不能被修改？" class="headerlink" title="怎么确保一个集合不能被修改？"></a>怎么确保一个集合不能被修改？</h2><p>到底怎么确保一个集合不能被修改呢，看以下这三哥们~</p>
+<ul>
+<li>unmodifiableMap</li>
+<li>unmodifiableList</li>
+<li>unmodifiableSet</li>
+</ul>
+<h2 id="讲讲红黑树的特点？"><a href="#讲讲红黑树的特点？" class="headerlink" title="讲讲红黑树的特点？"></a>讲讲红黑树的特点？</h2><p>每个节点或者是黑色，或者是红色。<br>根节点是黑色。<br>每个叶子节点（NIL）是黑色。[注意：这里叶子节点，是指为空(NIL或NULL)的叶子节点！]<br>如果一个节点是红色的，则它的子节点必须是黑色的。<br>从一个节点到该节点的子孙节点的所有路径上包含相同数目的黑节点。</p>
+<h2 id="HashMap在JDK1-7和JDK1-8中有哪些不同？"><a href="#HashMap在JDK1-7和JDK1-8中有哪些不同？" class="headerlink" title="HashMap在JDK1.7和JDK1.8中有哪些不同？"></a>HashMap在JDK1.7和JDK1.8中有哪些不同？</h2><p>看图<br><img src="/img/HashMap.jpg" alt="HashMap" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="/img/HashMap.jpg" class="lozad post-image"></p>
+<h2 id="ArrayList集合加入1万条数据，应该怎么提高效率"><a href="#ArrayList集合加入1万条数据，应该怎么提高效率" class="headerlink" title="ArrayList集合加入1万条数据，应该怎么提高效率"></a>ArrayList集合加入1万条数据，应该怎么提高效率</h2><p>因为ArrayList的底层是数组实现,并且数组的默认值是10,如果插入10000条要不断的扩容,耗费时间,所以我们调用ArrayList的指定容量的构造器方法ArrayList(int size) 就可以实现不扩容,就提高了性能。</p>
+<h2 id="有没有有顺序的Map实现类，如果有，他们是怎么保证有序的"><a href="#有没有有顺序的Map实现类，如果有，他们是怎么保证有序的" class="headerlink" title="有没有有顺序的Map实现类，如果有，他们是怎么保证有序的"></a>有没有有顺序的Map实现类，如果有，他们是怎么保证有序的</h2><ul>
+<li>Hashmap和HashTable 都不是有序的。</li>
+<li>TreeMap和LinkedHashmap都是有序的。（TreeMap默认是key升序，LinkedHashmap默认是数据插入顺序）</li>
+<li>TreeMap是基于比较器Comparator来实现有序的。</li>
+<li>LinkedHashmap是基于链表来实现数据插入有序的。</li>
+</ul>
+<h2 id="HashMap是怎么解决哈希冲突的"><a href="#HashMap是怎么解决哈希冲突的" class="headerlink" title="HashMap是怎么解决哈希冲突的"></a>HashMap是怎么解决哈希冲突的</h2><p>Hashmap解决hash冲突，使用的是链地址法，即数组+链表的形式来解决。put执行首先判断table[i]位置，如果为空就直接插入，不为空判断和当前值是否相等，相等就覆盖，如果不相等的话，判断是否是红黑树节点，如果不是，就从table[i]位置开始遍历链表，相等覆盖，不相等插入</p>
+
+  </div>
+  <div>
+    
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/about">
+            Floye
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="http://example.com/2022/01/12/DeepJava-5/">
+            http://example.com/2022/01/12/DeepJava-5/
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+      </div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+    <div class="nav-item-prev">
+      <a 
+        href="/2022/01/14/DeepJava-6-JVM-GC/" 
+        class="nav-link">
+        <i class="iconfont icon-left nav-prev-icon"></i>
+        <div>
+          <div class="nav-label">上一篇</div>
+          
+            <div class="nav-title">DeepJava-6:JVM&amp;GC </div>
+          
+        </div>
+      </a>
+    </div>
+  
+  
+    <div class="nav-item-next">
+      <a 
+        href="/2022/01/07/DeepJava-4/" 
+        class="nav-link">
+        <div>
+          <div class="nav-label">下一篇</div>
+          
+            <div class="nav-title">DeepJava-4 </div>
+          
+        </div>
+        <i class="iconfont icon-right nav-next-icon"></i>
+      </a>
+    </div>
+  
+</div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java%E9%9B%86%E5%90%88"><span class="toc-text">Java集合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Collections-sort%E5%92%8CArrays-sort%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-text">Collections.sort和Arrays.sort的实现原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap%E5%8E%9F%E7%90%86%EF%BC%8Cjava8%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88%E6%94%B9%E5%8F%98"><span class="toc-text">HashMap原理，java8做了什么改变</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TreeMap%E5%BA%95%E5%B1%82%EF%BC%9F"><span class="toc-text">TreeMap底层？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#List-%E5%92%8C-Set%EF%BC%8CMap-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">List 和 Set，Map 的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#poll-%E6%96%B9%E6%B3%95%E5%92%8C-remove-%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-text">poll()方法和 remove()方法的区别？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap%EF%BC%8CHashTable%EF%BC%8CConcurrentHash%E7%9A%84%E5%85%B1%E5%90%8C%E7%82%B9%E5%92%8C%E5%8C%BA%E5%88%AB"><span class="toc-text">HashMap，HashTable，ConcurrentHash的共同点和区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap-%E7%9A%84%E6%89%A9%E5%AE%B9%E8%BF%87%E7%A8%8B"><span class="toc-text">HashMap 的扩容过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashSet%E6%98%AF%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%B8%8D%E9%87%8D%E5%A4%8D%E7%9A%84"><span class="toc-text">HashSet是如何保证不重复的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%AA%E4%BA%9B%E9%9B%86%E5%90%88%E7%B1%BB%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%EF%BC%9F%E5%93%AA%E4%BA%9B%E4%B8%8D%E5%AE%89%E5%85%A8%EF%BC%9F"><span class="toc-text">哪些集合类是线程安全的？哪些不安全？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E7%A1%AE%E4%BF%9D%E4%B8%80%E4%B8%AA%E9%9B%86%E5%90%88%E4%B8%8D%E8%83%BD%E8%A2%AB%E4%BF%AE%E6%94%B9%EF%BC%9F"><span class="toc-text">怎么确保一个集合不能被修改？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%B2%E8%AE%B2%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E7%89%B9%E7%82%B9%EF%BC%9F"><span class="toc-text">讲讲红黑树的特点？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap%E5%9C%A8JDK1-7%E5%92%8CJDK1-8%E4%B8%AD%E6%9C%89%E5%93%AA%E4%BA%9B%E4%B8%8D%E5%90%8C%EF%BC%9F"><span class="toc-text">HashMap在JDK1.7和JDK1.8中有哪些不同？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ArrayList%E9%9B%86%E5%90%88%E5%8A%A0%E5%85%A51%E4%B8%87%E6%9D%A1%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87"><span class="toc-text">ArrayList集合加入1万条数据，应该怎么提高效率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%89%E6%B2%A1%E6%9C%89%E6%9C%89%E9%A1%BA%E5%BA%8F%E7%9A%84Map%E5%AE%9E%E7%8E%B0%E7%B1%BB%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%9C%89%EF%BC%8C%E4%BB%96%E4%BB%AC%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E6%9C%89%E5%BA%8F%E7%9A%84"><span class="toc-text">有没有有顺序的Map实现类，如果有，他们是怎么保证有序的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap%E6%98%AF%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%E5%93%88%E5%B8%8C%E5%86%B2%E7%AA%81%E7%9A%84"><span class="toc-text">HashMap是怎么解决哈希冲突的</span></a></li></ol></li></ol>
+</div></main>
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="/img/cy.jpg" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">Floye</p>
+<p class="author-description">一只不想被温水煮死的青蛙。</p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/archives">
+    <span>11</span>
+    <span>文章</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/categories">
+    <span>0</span>
+    <span>分类</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/tags">
+    <span>6</span>
+    <span>标签</span>
+  </a>
+</div>
+
+  <div class="author-card-society">
+    
+      <div class="author-card-society-icon">
+        <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/">
+          <i class="iconfont icon-wechat society-icon"></i>
+        </a>
+      </div>
+    
+      <div class="author-card-society-icon">
+        <a target="_blank" rel="noopener" href="https://outlook.live.com/mail/0/">
+          <i class="iconfont icon-mail society-icon"></i>
+        </a>
+      </div>
+    
+      <div class="author-card-society-icon">
+        <a target="_blank" rel="noopener" href="https://github.com/floyeCode/Demo.git">
+          <i class="iconfont icon-github society-icon"></i>
+        </a>
+      </div>
+    
+      <div class="author-card-society-icon">
+        <a target="_blank" rel="noopener" href="https://floyecode.github.io.git">
+          <i class="iconfont icon-stackflow society-icon"></i>
+        </a>
+      </div>
+    
+  </div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java%E9%9B%86%E5%90%88"><span class="toc-text">Java集合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Collections-sort%E5%92%8CArrays-sort%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-text">Collections.sort和Arrays.sort的实现原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap%E5%8E%9F%E7%90%86%EF%BC%8Cjava8%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88%E6%94%B9%E5%8F%98"><span class="toc-text">HashMap原理，java8做了什么改变</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TreeMap%E5%BA%95%E5%B1%82%EF%BC%9F"><span class="toc-text">TreeMap底层？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#List-%E5%92%8C-Set%EF%BC%8CMap-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">List 和 Set，Map 的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#poll-%E6%96%B9%E6%B3%95%E5%92%8C-remove-%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-text">poll()方法和 remove()方法的区别？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap%EF%BC%8CHashTable%EF%BC%8CConcurrentHash%E7%9A%84%E5%85%B1%E5%90%8C%E7%82%B9%E5%92%8C%E5%8C%BA%E5%88%AB"><span class="toc-text">HashMap，HashTable，ConcurrentHash的共同点和区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap-%E7%9A%84%E6%89%A9%E5%AE%B9%E8%BF%87%E7%A8%8B"><span class="toc-text">HashMap 的扩容过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashSet%E6%98%AF%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%B8%8D%E9%87%8D%E5%A4%8D%E7%9A%84"><span class="toc-text">HashSet是如何保证不重复的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%AA%E4%BA%9B%E9%9B%86%E5%90%88%E7%B1%BB%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%EF%BC%9F%E5%93%AA%E4%BA%9B%E4%B8%8D%E5%AE%89%E5%85%A8%EF%BC%9F"><span class="toc-text">哪些集合类是线程安全的？哪些不安全？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E7%A1%AE%E4%BF%9D%E4%B8%80%E4%B8%AA%E9%9B%86%E5%90%88%E4%B8%8D%E8%83%BD%E8%A2%AB%E4%BF%AE%E6%94%B9%EF%BC%9F"><span class="toc-text">怎么确保一个集合不能被修改？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%B2%E8%AE%B2%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E7%89%B9%E7%82%B9%EF%BC%9F"><span class="toc-text">讲讲红黑树的特点？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap%E5%9C%A8JDK1-7%E5%92%8CJDK1-8%E4%B8%AD%E6%9C%89%E5%93%AA%E4%BA%9B%E4%B8%8D%E5%90%8C%EF%BC%9F"><span class="toc-text">HashMap在JDK1.7和JDK1.8中有哪些不同？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ArrayList%E9%9B%86%E5%90%88%E5%8A%A0%E5%85%A51%E4%B8%87%E6%9D%A1%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87"><span class="toc-text">ArrayList集合加入1万条数据，应该怎么提高效率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%89%E6%B2%A1%E6%9C%89%E6%9C%89%E9%A1%BA%E5%BA%8F%E7%9A%84Map%E5%AE%9E%E7%8E%B0%E7%B1%BB%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%9C%89%EF%BC%8C%E4%BB%96%E4%BB%AC%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E6%9C%89%E5%BA%8F%E7%9A%84"><span class="toc-text">有没有有顺序的Map实现类，如果有，他们是怎么保证有序的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap%E6%98%AF%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%E5%93%88%E5%B8%8C%E5%86%B2%E7%AA%81%E7%9A%84"><span class="toc-text">HashMap是怎么解决哈希冲突的</span></a></li></ol></li></ol>
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="iconfont icon-fenlei" 
+      style="padding-right: 2px;">
+    </i>分类
+  </div>
+  <div class="categories-list">
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="iconfont icon-biaoqian" 
+      style="padding-right: 2px;">
+    </i>热门标签
+  </div>
+  <div class="tags-list">
+    
+      <a 
+        href="/tags/%E5%AD%A6%E4%B9%A0/" 
+        title="学习">
+        <div class="tags-list-item">学习</div>
+      </a>
+    
+      <a 
+        href="/tags/%E5%AD%A6%E4%B9%A0%E8%AE%B0%E5%BD%95/" 
+        title="学习记录">
+        <div class="tags-list-item">学习记录</div>
+      </a>
+    
+      <a 
+        href="/tags/%E5%86%99%E4%BD%9C/" 
+        title="写作">
+        <div class="tags-list-item">写作</div>
+      </a>
+    
+      <a 
+        href="/tags/%E8%AE%B0%E5%BD%95/" 
+        title="记录">
+        <div class="tags-list-item">记录</div>
+      </a>
+    
+      <a 
+        href="/tags/%E9%9A%8F%E7%AC%94/" 
+        title="随笔">
+        <div class="tags-list-item">随笔</div>
+      </a>
+    
+      <a 
+        href="/tags/%E5%8D%9A%E5%AE%A2/" 
+        title="博客">
+        <div class="tags-list-item">博客</div>
+      </a>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Java%E9%9B%86%E5%90%88"><span class="toc-text">Java集合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Collections-sort%E5%92%8CArrays-sort%E7%9A%84%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86"><span class="toc-text">Collections.sort和Arrays.sort的实现原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap%E5%8E%9F%E7%90%86%EF%BC%8Cjava8%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88%E6%94%B9%E5%8F%98"><span class="toc-text">HashMap原理，java8做了什么改变</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TreeMap%E5%BA%95%E5%B1%82%EF%BC%9F"><span class="toc-text">TreeMap底层？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#List-%E5%92%8C-Set%EF%BC%8CMap-%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text">List 和 Set，Map 的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#poll-%E6%96%B9%E6%B3%95%E5%92%8C-remove-%E6%96%B9%E6%B3%95%E7%9A%84%E5%8C%BA%E5%88%AB%EF%BC%9F"><span class="toc-text">poll()方法和 remove()方法的区别？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap%EF%BC%8CHashTable%EF%BC%8CConcurrentHash%E7%9A%84%E5%85%B1%E5%90%8C%E7%82%B9%E5%92%8C%E5%8C%BA%E5%88%AB"><span class="toc-text">HashMap，HashTable，ConcurrentHash的共同点和区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap-%E7%9A%84%E6%89%A9%E5%AE%B9%E8%BF%87%E7%A8%8B"><span class="toc-text">HashMap 的扩容过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashSet%E6%98%AF%E5%A6%82%E4%BD%95%E4%BF%9D%E8%AF%81%E4%B8%8D%E9%87%8D%E5%A4%8D%E7%9A%84"><span class="toc-text">HashSet是如何保证不重复的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%93%AA%E4%BA%9B%E9%9B%86%E5%90%88%E7%B1%BB%E6%98%AF%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%EF%BC%9F%E5%93%AA%E4%BA%9B%E4%B8%8D%E5%AE%89%E5%85%A8%EF%BC%9F"><span class="toc-text">哪些集合类是线程安全的？哪些不安全？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E7%A1%AE%E4%BF%9D%E4%B8%80%E4%B8%AA%E9%9B%86%E5%90%88%E4%B8%8D%E8%83%BD%E8%A2%AB%E4%BF%AE%E6%94%B9%EF%BC%9F"><span class="toc-text">怎么确保一个集合不能被修改？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%B2%E8%AE%B2%E7%BA%A2%E9%BB%91%E6%A0%91%E7%9A%84%E7%89%B9%E7%82%B9%EF%BC%9F"><span class="toc-text">讲讲红黑树的特点？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap%E5%9C%A8JDK1-7%E5%92%8CJDK1-8%E4%B8%AD%E6%9C%89%E5%93%AA%E4%BA%9B%E4%B8%8D%E5%90%8C%EF%BC%9F"><span class="toc-text">HashMap在JDK1.7和JDK1.8中有哪些不同？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ArrayList%E9%9B%86%E5%90%88%E5%8A%A0%E5%85%A51%E4%B8%87%E6%9D%A1%E6%95%B0%E6%8D%AE%EF%BC%8C%E5%BA%94%E8%AF%A5%E6%80%8E%E4%B9%88%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87"><span class="toc-text">ArrayList集合加入1万条数据，应该怎么提高效率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%89%E6%B2%A1%E6%9C%89%E6%9C%89%E9%A1%BA%E5%BA%8F%E7%9A%84Map%E5%AE%9E%E7%8E%B0%E7%B1%BB%EF%BC%8C%E5%A6%82%E6%9E%9C%E6%9C%89%EF%BC%8C%E4%BB%96%E4%BB%AC%E6%98%AF%E6%80%8E%E4%B9%88%E4%BF%9D%E8%AF%81%E6%9C%89%E5%BA%8F%E7%9A%84"><span class="toc-text">有没有有顺序的Map实现类，如果有，他们是怎么保证有序的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HashMap%E6%98%AF%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%E5%93%88%E5%B8%8C%E5%86%B2%E7%AA%81%E7%9A%84"><span class="toc-text">HashMap是怎么解决哈希冲突的</span></a></li></ol></li></ol>
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="iconfont icon-wenzhang_huaban" 
+      style="padding-right: 2px;">
+    </i>最近文章
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-01-16</div>
+        <a href="/2022/01/16/DeepJava-7-%E5%B9%B6%E5%8F%91%E4%B8%8E%E5%A4%9A%E7%BA%BF%E7%A8%8B/"><div class="recent-posts-item-content">DeepJava-7-并发与多线程</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-01-14</div>
+        <a href="/2022/01/14/DeepJava-6-JVM-GC/"><div class="recent-posts-item-content">DeepJava-6:JVM&amp;GC</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-01-12</div>
+        <a href="/2022/01/12/DeepJava-5/"><div class="recent-posts-item-content">DeepJava-5</div></a>
+      </div>
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2022-01-07</div>
+        <a href="/2022/01/07/DeepJava-4/"><div class="recent-posts-item-content">DeepJava-4</div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2020 -
+          
+          2022
+        </span>
+        &nbsp;
+        <a 
+          href="/" 
+          class="footer-link">
+          Floye Coding Road
+        </a>
+      </div>
+    </div>
+
+    
+      <div class="footer-dsc">
+        
+          Powered by
+          <a 
+            href="https://hexo.io/" 
+            class="footer-link" 
+            target="_blank" 
+            rel="nofollow noopener noreferrer">
+            &nbsp;Hexo
+          </a>
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          Theme -
+          <a 
+            href="https://github.com/theme-kaze" 
+            class="footer-link" 
+            target="_blank"
+            rel="nofollow noopener noreferrer">
+            &nbsp;Kaze
+          </a>
+        
+      </div>
+    
+    
+    
+    
+      <div class="footer-dsc">
+        
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          本站总访客数<span id="busuanzi_value_site_uv"></span>次
+        
+      </div>
+      
+    
+</footer> 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="iconfont icon-arrowleft button-icon"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/js/main.js"></script> 
+    
+      <script> 
+        loadScript('/js/lib/busuanzi.min.js') 
+      </script>
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/js/lib/lozad.min.js', addLazyload)
+      </script>
+     
+    
+    
+      <script>
+        setTimeout(() => {localSearch("search.json")}, 0)
+      </script>
+    
+  </body>
+</html>
