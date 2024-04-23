@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+  <meta charset="UTF-8">
+  <meta 
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <meta 
+    http-equiv="X-UA-Compatible" 
+    content="ie=edge">
+  <meta 
+    name="theme-color" 
+    content="#fff" 
+    id="theme-color">
+  <meta 
+    name="description" 
+    content="程序员的深耕路线">
+  <link 
+    rel="icon" 
+    href="/img/cy.jpg">
+  <title>Floye Coding Road</title>
+  
+    
+      <meta 
+        property="og:title" 
+        content="Floye Coding Road">
+    
+    
+      <meta 
+        property="og:url" 
+        content="http://example.com/2024/04/22/Markdown%20%E8%AF%AD%E6%B3%95%E7%BB%83%E4%B9%A0/index.html">
+    
+    
+      <meta 
+        property="og:img" 
+        content="/img/cy.jpg">
+    
+    
+      <meta 
+        property="og:img" 
+        content="程序员的深耕路线">
+    
+    
+      <meta 
+        property="og:type" 
+        content="article">
+      <meta 
+        property="og:article:published_time" 
+        content="2024-04-22">
+      <meta 
+        property="og:article:modified_time" 
+        content="2024-04-22">
+      <meta 
+        property="og:article:author" 
+        content="Floye">
+      
+        
+      
+    
+  
+  <script>
+    function loadScript(url, cb) {
+      var script = document.createElement('script');
+      script.src = url;
+      if (cb) script.onload = cb;
+      script.async = true;
+      document.body.appendChild(script);
+    }
+    function loadCSS(href, data, attr) {
+      var sheet = document.createElement('link');
+      sheet.ref = 'stylesheet';
+      sheet.href = href;
+      sheet.dataset[data] = attr;
+      document.head.appendChild(sheet);
+    }
+    function changeCSS(cssFile, data, attr) {
+      var oldlink = document.querySelector(data);
+      var newlink = document.createElement("link");
+      newlink.setAttribute("rel", "stylesheet");
+      newlink.setAttribute("href", cssFile);
+      newlink.dataset.prism = attr;
+      document.head.replaceChild(newlink, oldlink);
+    }
+  </script>
+  
+    
+  
+  <script>
+    // control reverse button
+    var reverseDarkList = {
+      dark: 'light',
+      light: 'dark'
+    };
+    var themeColor = {
+      dark: '#1c1c1e',
+      light: '#fff'
+    }
+    // get the data of css prefers-color-scheme
+    var getCssMediaQuery = function() {
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    };
+    // reverse current darkmode setting function
+    var reverseDarkModeSetting = function() {
+      var setting = localStorage.getItem('user-color-scheme');
+      if(reverseDarkList[setting]) {
+        setting = reverseDarkList[setting];
+      } else if(setting === null) {
+        setting = reverseDarkList[getCssMediaQuery()];
+      } else {
+        return;
+      }
+      localStorage.setItem('user-color-scheme', setting);
+      return setting;
+    };
+    // apply current darkmode setting
+  </script>
+  
+    <script>
+      var setDarkmode = function(mode) {
+      var setting = mode || localStorage.getItem('user-color-scheme');
+      if(setting === getCssMediaQuery()) {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else if(reverseDarkList[setting]) {
+        document.documentElement.setAttribute('data-user-color-scheme', setting);
+        document.getElementById('theme-color').content = themeColor[setting];
+        document.getElementById('theme-color').dataset.mode = setting;
+      } else {
+        document.documentElement.removeAttribute('data-user-color-scheme');
+        localStorage.removeItem('user-color-scheme');
+        document.getElementById('theme-color').content = themeColor[getCssMediaQuery()];
+        document.getElementById('theme-color').dataset.mode = getCssMediaQuery();
+      }
+    };
+    setDarkmode();
+    </script>
+  
+  
+  <link rel="preload" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css" as="style" >
+  <link rel="preload" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css" as="style" >
+  
+  
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.js" as="script">
+    <link rel="preload" href="/js/lib/lightbox/baguetteBox.min.css" as="style" >
+  
+  
+    <link rel="preload" href="/js/lib/lozad.min.js" as="script">
+  
+  
+  
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/main.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1946621_i1kgafibvw.css">
+  
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_1952792_89b4ac4k4up.css">
+  
+    <link rel="stylesheet" href="/js/lib/lightbox/baguetteBox.min.css">
+  
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+  <body>
+    <div class="wrapper">
+       
+      <nav class="navbar">
+  <div class="navbar-logo">
+    <span class="navbar-logo-main">
+      
+        <img 
+          class="navbar-logo-img"
+          width="32"
+          height="32"
+          src="/img/cy.jpg" 
+          alt="blog logo">
+      
+      <span class="navbar-logo-dsc">Floye Coding Road</span>
+    </span>
+  </div>
+  <div class="navbar-menu">
+    
+      <a 
+        href="/" 
+        class="navbar-menu-item">
+        
+          首页
+        
+      </a>
+    
+      <a 
+        href="/archives" 
+        class="navbar-menu-item">
+        
+          归档
+        
+      </a>
+    
+      <a 
+        href="/tags" 
+        class="navbar-menu-item">
+        
+          标签
+        
+      </a>
+    
+      <a 
+        href="/categories" 
+        class="navbar-menu-item">
+        
+          分类
+        
+      </a>
+    
+      <a 
+        href="/about" 
+        class="navbar-menu-item">
+        
+          关于
+        
+      </a>
+    
+      <a 
+        href="/links" 
+        class="navbar-menu-item">
+        
+          友链
+        
+      </a>
+    
+    <a 
+      class="navbar-menu-item darknavbar" 
+      id="dark">
+      <i class="iconfont icon-weather"></i>
+    </a>
+    <a 
+      class="navbar-menu-item searchnavbar" 
+      id="search">
+      <i 
+        class="iconfont icon-search" 
+        style="font-size: 1.2rem; font-weight: 400;">
+      </i>
+    </a>
+  </div>
+</nav> 
+      
+      <div 
+        id="local-search" 
+        style="display: none">
+        <input
+          class="navbar-menu-item"
+          id="search-input"
+          placeholder="请输入搜索内容..." />
+        <div id="search-content"></div>
+      </div>
+      
+      <div class="section-wrap">
+        <div class="container">
+          <div class="columns">
+            <main class="main-column">
+<article class="card card-content">
+  <header>
+    <h1 class="post-title">
+      
+    </h1>
+  </header>
+  <div class="post-meta post-show-meta">
+    <time datetime="2024-04-22T05:16:30.965Z">
+      <i 
+        class="iconfont icon-calendar" 
+        style="margin-right: 2px;">
+      </i>
+      <span>2024-04-22</span>
+    </time>
+    
+    
+      <span class="dot"></span>
+      <span>880 字</span>
+    
+  </div>
+  
+  </header>
+  <div 
+    id="section" 
+    class="post-content">
+    <h1 id="Markdown-语法练习"><a href="#Markdown-语法练习" class="headerlink" title="Markdown 语法练习"></a>Markdown 语法练习</h1><hr>
+<h2 id="一、标题"><a href="#一、标题" class="headerlink" title="一、标题"></a>一、标题</h2><p>markdown 用#号加空格标记，可表示1-6级标题<br>如：<br><code># 一级标题</code><br><code>## 二级标题</code><br><code>### 三级标题</code><br><code>#### 四级标题</code><br><code>##### 五级标题</code><br><code>###### 六级标题</code></p>
+<h2 id="二、字体"><a href="#二、字体" class="headerlink" title="二、字体"></a>二、字体</h2><p>星号与下划线都可以，单是斜体，双是粗体，三是粗斜体<br>如：<br><em>这是斜体</em><br><strong>这是粗体</strong><br><em><strong>这是粗斜体</strong></em></p>
+<h2 id="三、换行"><a href="#三、换行" class="headerlink" title="三、换行"></a>三、换行</h2><ol>
+<li>直接在一句话后敲两个空格</li>
+<li>两句话之间加一个空行</li>
+<li>在编辑时想在一行文字显示时在指定位置换行，就在其后加<br/><br>如：<br>一行文字要在这里<br/>换行显示</li>
+</ol>
+<h2 id="四、引用"><a href="#四、引用" class="headerlink" title="四、引用"></a>四、引用</h2><ul>
+<li>引用通过符号 &gt; 来实现, &gt; 符号后空格，可有可无。</li>
+<li>引用内可以使用换行符，要结束引用，需要一行空白行。</li>
+<li>引用可以嵌套使用。<br>如：<blockquote>
+<p>这是一个引用</p>
+<blockquote>
+<p>这是一个引用的引用</p>
+<blockquote>
+<p>这是一个引用的引用的引用</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<h2 id="五、链接"><a href="#五、链接" class="headerlink" title="五、链接"></a>五、链接</h2><p>链接有两种方式</p>
+<ol>
+<li>`<a href="%E9%93%BE%E6%8E%A5%E5%9C%B0%E5%9D%80">链接名称</a></li>
+<li>`[链接名称]&lt;链接地址&gt;<br>如：<br><a target="_blank" rel="noopener" href="https://floyecode.github.io/">这是圆括号方式链接地址</a><br><a target="_blank" rel="noopener" href="https://floyecode.github.io/">这是尖括号方式链接地址</a></li>
+</ol>
+<h2 id="六、图片"><a href="#六、图片" class="headerlink" title="六、图片"></a>六、图片</h2><p>图片的使用方式是<br><code>![图片描述](图片地址)</code><br>如：<br><img src="D:\Kay\Pictures\头像\SeaThink.jpg" alt="本地图片示意" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="D:\Kay\Pictures\头像\SeaThink.jpg" class="lozad post-image"><br>如果要改变图片位置大小，可以用<br><code>![图片描述](图片地址#pic_center空格=长×宽)</code><br>如：<br>![本地](D:\Kay\Pictures\头像\SeaThink.jpg#pic_center =30×30)</p>
+<h2 id="七、列表"><a href="#七、列表" class="headerlink" title="七、列表"></a>七、列表</h2><p>列表分为有序列表和无序列表</p>
+<ul>
+<li>有序列表：数字加上 . 号，再加一个空格</li>
+<li>无序列表：使用 * 或 + 或 - ， 再加一个空格<br>如：<blockquote>
+<ul>
+<li>加号无序列表</li>
+</ul>
+<ul>
+<li>减号无序列表</li>
+</ul>
+<ul>
+<li>星号无序列表</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+<blockquote>
+<ol>
+<li>数字有序列表1</li>
+<li>数字有序列表2</li>
+</ol>
+</blockquote>
+<p>若要控制列表的层级，则要在列表符号前加<code>tab</code><br>如：</p>
+<ul>
+<li>星号无序列表<ul>
+<li>星号二级无序列表</li>
+</ul>
+</li>
+</ul>
+<h2 id="八、分割线"><a href="#八、分割线" class="headerlink" title="八、分割线"></a>八、分割线</h2><p>使用分割线，可以用三个连续的 - 或 + 号，注意分割线上须空一行！！<br>如：<br>下面是一条分割线</p>
+<hr>
+<h2 id="九、删除线"><a href="#九、删除线" class="headerlink" title="九、删除线"></a>九、删除线</h2><p>在要添加删除线的文字前后添加两个 <code>~~</code><br>如：<br><del>这是一段加删除线的文字</del></p>
+<h2 id="十、下划线"><a href="#十、下划线" class="headerlink" title="十、下划线"></a>十、下划线</h2><p>与HTML语法类似，在要添加下划线的文字前与后加<code>&lt;u&gt;和&lt;/u&gt;</code><br>如：<br><u>这是一段加下划线的文字</u></p>
+<h2 id="十一、代码块"><a href="#十一、代码块" class="headerlink" title="十一、代码块"></a>十一、代码块</h2><ul>
+<li><p>若要在一行内引用代码，只需要将代码部分用反引号 ` 引起来就可以。<br>如：<br>这是一段<code>code</code>和文字</p>
+</li>
+<li><p>若要在一个块内引用代码，则在需要引用的代码块的前一行和后一行使用三个反引号`， 同时可在前一个反引号后写入代码的语言。<br>如：</p>
+<pre class="highlight"><span class="line"><span class="comment">//这是一块java 代码</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Demo</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">&quot;Hello world!&quot;</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre>
+<blockquote>
+<p>支持如下语言：<br><img src="D:\Kay\Study\MD\Lang.jpg" alt="语言" srcset="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20300%20300'%3E%3C/svg%3E" data-src="D:\Kay\Study\MD\Lang.jpg" class="lozad post-image"></p>
+</blockquote>
+</li>
+</ul>
+<h2 id="十二、表格"><a href="#十二、表格" class="headerlink" title="十二、表格"></a>十二、表格</h2><p>表格使用|来分割不同的单元格，使用-来分割表头和其他行。</p>
+<ul>
+<li><code>:- </code>: 将表头及单元格内容左对齐 </li>
+<li><code>-: </code>: 将表头及单元格内容右对齐 </li>
+<li><code>:-: </code>: 将表头及单元格内容居中对齐<br>如：<table>
+<thead>
+<tr>
+<th align="center">序号（居中）</th>
+<th align="left">姓名(左对齐)</th>
+<th align="right">年龄(右对齐)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">1</td>
+<td align="left">张三</td>
+<td align="right">18</td>
+</tr>
+<tr>
+<td align="center">2</td>
+<td align="left">李四</td>
+<td align="right">30</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="十三、脚注"><a href="#十三、脚注" class="headerlink" title="十三、脚注"></a>十三、脚注</h2><p>一般在论文或其他文献中常能看到脚注，点击脚注标号可以直接跳转到加注位置。<br>脚注的表达用<code>[^数字]</code>来表示。<br>如：<br>这段文字参考了文献一<a href="%E6%96%87%E7%8C%AE%E4%B8%80%EF%BC%9A%E8%84%9A%E6%B3%A8%E7%9A%84%E7%94%A8%E6%B3%95%EF%BC%88%E4%B8%80%EF%BC%89">^1</a>和文献二<a href="%E6%96%87%E7%8C%AE%E4%BA%8C%EF%BC%9A%E8%84%9A%E6%B3%A8%E7%9A%84%E7%94%A8%E6%B3%95%EF%BC%88%E4%BA%8C%EF%BC%89">^2</a></p>
+<h2 id="十四、特殊符号"><a href="#十四、特殊符号" class="headerlink" title="十四、特殊符号"></a>十四、特殊符号</h2><p>对于markdown中的语法符号，前面加反斜线 \ 即可显示符号本身。<br>如：</p>
+<pre class="highlight"><span class="line">\\</span><br><span class="line">\*</span><br><span class="line">\-</span><br><span class="line">\+</span><br><span class="line">\.</span><br><span class="line">等等</span><br></pre>
+
+
+  </div>
+  <div>
+    
+      <div 
+        class="post-note note-warning copyright" 
+        style="margin-top: 42px">
+        <p>
+          <span style="font-weight: bold;">作者：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="/about">
+            Floye
+          </a>
+        </p>
+        <p>
+          <span style="font-weight: bold;">文章链接：</span><a 
+            target="_blank" 
+            rel="nofollow noopener noreferrer" 
+            href="http://example.com/2024/04/22/Markdown%20%E8%AF%AD%E6%B3%95%E7%BB%83%E4%B9%A0/">
+            http://example.com/2024/04/22/Markdown%20%E8%AF%AD%E6%B3%95%E7%BB%83%E4%B9%A0/
+          </a>
+        </p>
+        <p><span style="font-weight: bold;">版权声明：</span>本博客所有文章除特别声明外，均采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0 协议</a>。转载请注明出处！</p>
+      </div>
+    
+  </div>
+</article>
+<div class="nav">
+  
+  
+</div>
+
+<div 
+  class="card card-content toc-card" 
+  id="mobiletoc">
+  <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Markdown-%E8%AF%AD%E6%B3%95%E7%BB%83%E4%B9%A0"><span class="toc-text">Markdown 语法练习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A0%87%E9%A2%98"><span class="toc-text">一、标题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AD%97%E4%BD%93"><span class="toc-text">二、字体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%8D%A2%E8%A1%8C"><span class="toc-text">三、换行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%BC%95%E7%94%A8"><span class="toc-text">四、引用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E9%93%BE%E6%8E%A5"><span class="toc-text">五、链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%9B%BE%E7%89%87"><span class="toc-text">六、图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%88%97%E8%A1%A8"><span class="toc-text">七、列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%88%86%E5%89%B2%E7%BA%BF"><span class="toc-text">八、分割线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E5%88%A0%E9%99%A4%E7%BA%BF"><span class="toc-text">九、删除线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E3%80%81%E4%B8%8B%E5%88%92%E7%BA%BF"><span class="toc-text">十、下划线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="toc-text">十一、代码块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81%E8%A1%A8%E6%A0%BC"><span class="toc-text">十二、表格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E8%84%9A%E6%B3%A8"><span class="toc-text">十三、脚注</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E5%9B%9B%E3%80%81%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7"><span class="toc-text">十四、特殊符号</span></a></li></ol></li></ol>
+</div></main>
+            <aside class="left-column">
+              
+              <div class="card card-author">
+                
+  <img 
+    src="/img/cy.jpg" 
+    class="author-img"
+    width="88"
+    height="88"
+    alt="author avatar">
+
+<p class="author-name">Floye</p>
+<p class="author-description">一只不想被温水煮死的青蛙。</p>
+<div class="author-message">
+  <a 
+    class="author-posts-count" 
+    href="/archives">
+    <span>1</span>
+    <span>文章</span>
+  </a>
+  <a 
+    class="author-categories-count" 
+    href="/categories">
+    <span>0</span>
+    <span>分类</span>
+  </a>
+  <a 
+    class="author-tags-count" 
+    href="/tags">
+    <span>0</span>
+    <span>标签</span>
+  </a>
+</div>
+
+  <div class="author-card-society">
+    
+      <div class="author-card-society-icon">
+        <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/">
+          <i class="iconfont icon-wechat society-icon"></i>
+        </a>
+      </div>
+    
+      <div class="author-card-society-icon">
+        <a target="_blank" rel="noopener" href="https://outlook.live.com/mail/0/">
+          <i class="iconfont icon-mail society-icon"></i>
+        </a>
+      </div>
+    
+      <div class="author-card-society-icon">
+        <a target="_blank" rel="noopener" href="https://github.com/floyeCode/Demo.git">
+          <i class="iconfont icon-github society-icon"></i>
+        </a>
+      </div>
+    
+      <div class="author-card-society-icon">
+        <a target="_blank" rel="noopener" href="https://floyecode.github.io.git">
+          <i class="iconfont icon-stackflow society-icon"></i>
+        </a>
+      </div>
+    
+  </div>
+
+              </div>
+               <div class="sticky-tablet">
+  
+  
+    <article class="display-when-two-columns spacer">
+      <div class="card card-content toc-card">
+        <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Markdown-%E8%AF%AD%E6%B3%95%E7%BB%83%E4%B9%A0"><span class="toc-text">Markdown 语法练习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A0%87%E9%A2%98"><span class="toc-text">一、标题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AD%97%E4%BD%93"><span class="toc-text">二、字体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%8D%A2%E8%A1%8C"><span class="toc-text">三、换行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%BC%95%E7%94%A8"><span class="toc-text">四、引用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E9%93%BE%E6%8E%A5"><span class="toc-text">五、链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%9B%BE%E7%89%87"><span class="toc-text">六、图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%88%97%E8%A1%A8"><span class="toc-text">七、列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%88%86%E5%89%B2%E7%BA%BF"><span class="toc-text">八、分割线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E5%88%A0%E9%99%A4%E7%BA%BF"><span class="toc-text">九、删除线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E3%80%81%E4%B8%8B%E5%88%92%E7%BA%BF"><span class="toc-text">十、下划线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="toc-text">十一、代码块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81%E8%A1%A8%E6%A0%BC"><span class="toc-text">十二、表格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E8%84%9A%E6%B3%A8"><span class="toc-text">十三、脚注</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E5%9B%9B%E3%80%81%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7"><span class="toc-text">十四、特殊符号</span></a></li></ol></li></ol>
+      </div>
+    </article>
+  
+  
+  <article class="card card-content categories-widget">
+    <div class="categories-card">
+  <div class="categories-header">
+    <i 
+      class="iconfont icon-fenlei" 
+      style="padding-right: 2px;">
+    </i>分类
+  </div>
+  <div class="categories-list">
+    
+  </div>
+</div>
+  </article>
+  
+  <article class="card card-content tags-widget">
+    <div class="tags-card">
+  <div class="tags-header">
+    <i 
+      class="iconfont icon-biaoqian" 
+      style="padding-right: 2px;">
+    </i>热门标签
+  </div>
+  <div class="tags-list">
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+            <aside class="right-column">
+              <div class="sticky-widescreen">
+  
+  
+    <article class="card card-content toc-card">
+      <div class="toc-header">
+  <i 
+    class="iconfont icon-menu" 
+    style="padding-right: 2px;">
+  </i>目录
+</div>
+<ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Markdown-%E8%AF%AD%E6%B3%95%E7%BB%83%E4%B9%A0"><span class="toc-text">Markdown 语法练习</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E6%A0%87%E9%A2%98"><span class="toc-text">一、标题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E5%AD%97%E4%BD%93"><span class="toc-text">二、字体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E6%8D%A2%E8%A1%8C"><span class="toc-text">三、换行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E5%BC%95%E7%94%A8"><span class="toc-text">四、引用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%94%E3%80%81%E9%93%BE%E6%8E%A5"><span class="toc-text">五、链接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AD%E3%80%81%E5%9B%BE%E7%89%87"><span class="toc-text">六、图片</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%88%97%E8%A1%A8"><span class="toc-text">七、列表</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%88%86%E5%89%B2%E7%BA%BF"><span class="toc-text">八、分割线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E5%88%A0%E9%99%A4%E7%BA%BF"><span class="toc-text">九、删除线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E3%80%81%E4%B8%8B%E5%88%92%E7%BA%BF"><span class="toc-text">十、下划线</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="toc-text">十一、代码块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81%E8%A1%A8%E6%A0%BC"><span class="toc-text">十二、表格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E8%84%9A%E6%B3%A8"><span class="toc-text">十三、脚注</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%81%E5%9B%9B%E3%80%81%E7%89%B9%E6%AE%8A%E7%AC%A6%E5%8F%B7"><span class="toc-text">十四、特殊符号</span></a></li></ol></li></ol>
+    </article>
+  
+  
+  <article class="card card-content">
+    <div class="recent-posts-card">
+  <div class="recent-posts-header">
+    <i 
+      class="iconfont icon-wenzhang_huaban" 
+      style="padding-right: 2px;">
+    </i>最近文章
+  </div>
+  <div class="recent-posts-list">
+    
+      <div class="recent-posts-item">
+        <div class="recent-posts-item-title">2024-04-22</div>
+        <a href="/2024/04/22/Markdown%20%E8%AF%AD%E6%B3%95%E7%BB%83%E4%B9%A0/"><div class="recent-posts-item-content"></div></a>
+      </div>
+    
+  </div>
+</div>
+  </article>
+  
+  
+</div>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </div>
+     
+    <footer class="footer">
+  <div class="footer-container">
+    <div>
+      <div class="footer-dsc">
+        <span>
+          Copyright ©
+          
+            2020 -
+          
+          2024
+        </span>
+        &nbsp;
+        <a 
+          href="/" 
+          class="footer-link">
+          Floye Coding Road
+        </a>
+      </div>
+    </div>
+
+    
+      <div class="footer-dsc">
+        
+          Powered by
+          <a 
+            href="https://hexo.io/" 
+            class="footer-link" 
+            target="_blank" 
+            rel="nofollow noopener noreferrer">
+            &nbsp;Hexo
+          </a>
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          Theme -
+          <a 
+            href="https://github.com/theme-kaze" 
+            class="footer-link" 
+            target="_blank"
+            rel="nofollow noopener noreferrer">
+            &nbsp;Kaze
+          </a>
+        
+      </div>
+    
+    
+    
+    
+      <div class="footer-dsc">
+        
+          本站总访问量<span id="busuanzi_value_site_pv"></span>次
+        
+        
+          <span>&nbsp;|&nbsp;</span>
+        
+        
+          本站总访客数<span id="busuanzi_value_site_uv"></span>次
+        
+      </div>
+      
+    
+</footer> 
+    
+  <a 
+    role="button" 
+    id="scrollbutton" 
+    class="basebutton" 
+    aria-label="回到顶部">
+    <i class="iconfont icon-arrowleft button-icon"></i>
+  </a>
+
+<a 
+  role="button" 
+  id="menubutton"
+  aria-label="menu button"
+  class="basebutton">
+  <i class="iconfont icon-menu button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="popbutton" 
+  class="basebutton" 
+  aria-label="控制中心">
+  <i class="iconfont icon-expand button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="darkbutton" 
+  class="basebutton darkwidget" 
+  aria-label="夜色模式">
+  <i class="iconfont icon-weather button-icon"></i>
+</a>
+<a 
+  role="button" 
+  id="searchbutton" 
+  class="basebutton searchwidget" 
+  aria-label="搜索">
+  <i class="iconfont icon-search button-icon"></i>
+</a> 
+     
+     
+     
+      <script>
+  var addImgLayout = function () {
+    var img = document.querySelectorAll('.post-content img')
+    var i
+    for (i = 0; i < img.length; i++) {
+      var wrapper = document.createElement('a')
+      wrapper.setAttribute('href', img[i].getAttribute('data-src'))
+      wrapper.setAttribute('aria-label', 'illustration')
+      wrapper.style.cssText =
+        'width: 100%; display: flex; justify-content: center;'
+      if (img[i].alt) wrapper.dataset.caption = img[i].alt
+      wrapper.dataset.nolink = true
+      img[i].before(wrapper)
+      wrapper.append(img[i])
+      var divWrap = document.createElement('div')
+      divWrap.classList.add('gallery')
+      wrapper.before(divWrap)
+      divWrap.append(wrapper)
+    }
+    baguetteBox.run('.gallery')
+  }
+</script>
+<script>
+  loadScript(
+    "/js/lib/lightbox/baguetteBox.min.js",
+    addImgLayout
+  )
+</script>
+ 
+     
+     
+    <script src="/js/main.js"></script> 
+    
+      <script> 
+        loadScript('/js/lib/busuanzi.min.js') 
+      </script>
+     
+    
+      <script>
+        var addLazyload = function () {
+          var observer = lozad('.lozad', {
+            load: function (el) {
+              el.srcset = el.getAttribute('data-src')
+            },
+            loaded: function (el) {
+              el.classList.add('loaded')
+            },
+          })
+          observer.observe()
+        }
+      </script>
+      <script>
+        loadScript('/js/lib/lozad.min.js', addLazyload)
+      </script>
+     
+    
+    
+      <script>
+        setTimeout(() => {localSearch("search.json")}, 0)
+      </script>
+    
+  </body>
+</html>
